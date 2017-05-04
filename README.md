@@ -1,4 +1,4 @@
-### lib-virtualnetwork git repository
+### smi-lib-virtualnetwork git repository
 
 ### Overview
 The virtualnetwork project builds a Java JAR library that makes avalable an API to consuming java programs.  It encapsulates business logic for crud of network definitions/settings, static IP address pools, and an IP Address Management (IPAM) reservation process.
