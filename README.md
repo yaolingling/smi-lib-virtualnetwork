@@ -1,6 +1,4 @@
-lib-virtualnetwork git repository
-
-[![Quality Gate](http://100.68.126.201:9000/api/badges/gate?key=com.dell.isg.smi:virtualnetwork)](http://100.68.126.201:9000/dashboard/index/com.dell.isg.smi:virtualnetwork)
+### lib-virtualnetwork git repository
 
 ### Overview
 The virtualnetwork project builds a Java JAR library that makes avalable an API to consuming java programs.  It encapsulates business logic for crud of network definitions/settings, static IP address pools, and an IP Address Management (IPAM) reservation process.
@@ -9,6 +7,8 @@ The virtualnetwork project builds a Java JAR library that makes avalable an API 
 The library is published to the following GTIE artifactory server: https://gtie-artifactory.us.dell.com
 
 ##### Maven Example:
+
+Under Construction. Not available via Maven Central yet.... 
 ~~~
 <dependency>
     <groupId>com.dell.isg.smi</groupId>
