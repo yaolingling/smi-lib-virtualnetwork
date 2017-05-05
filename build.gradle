@@ -19,7 +19,7 @@ buildscript {
    repositories {
     mavenLocal()
 	maven {
-		url "${artifactory_contextUrl}/libs-release"
+		//url "${artifactory_contextUrl}/libs-release"
 		url "https://plugins.gradle.org/m2/"
 	}
   }
