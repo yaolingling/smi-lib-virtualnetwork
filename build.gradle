@@ -38,7 +38,7 @@ buildscript {
 
 sonarqube {
     properties {
-        property "sonar.projectName", "SMI :: Library :: Virtual Network"
+        property "sonar.projectName", "rackhd :: smi-lib-virtualnetwork"
         property "sonar.projectKey", "${group}:virtualnetwork"
     }
 }
