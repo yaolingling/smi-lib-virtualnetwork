@@ -1,4 +1,6 @@
-### smi-lib-virtualnetwork git repository
+[![Quality Gate](https://sonarqube.com/api/badges/gate?key=com.dell.isg.smi:virtualnetwork)](https://sonarqube.com/dashboard?id=com.dell.isg.smi%3Avirtualnetwork)
+
+### smi-lib-virtualnetwork git repository  
 
 ### Overview
 The virtualnetwork project builds a Java JAR library that makes avalable an API to consuming java programs.  It encapsulates business logic for crud of network definitions/settings, static IP address pools, and an IP Address Management (IPAM) reservation process.
