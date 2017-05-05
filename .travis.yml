@@ -2,4 +2,4 @@ language: java
 sudo: false
 script: mvn build test sonarqube
 jdk:
-  - openjdk7
+  - oraclejdk8
