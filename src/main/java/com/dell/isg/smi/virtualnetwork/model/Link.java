@@ -8,6 +8,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
+/**
+ * The Class Link.
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Link")
 public class Link {

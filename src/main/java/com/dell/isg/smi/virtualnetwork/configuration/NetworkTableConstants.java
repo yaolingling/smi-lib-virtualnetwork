@@ -4,8 +4,7 @@
 package com.dell.isg.smi.virtualnetwork.configuration;
 
 /**
- * @author Lakshmi.Lakkireddy
- *
+ * The Class NetworkTableConstants.
  */
 public class NetworkTableConstants {
 
@@ -44,5 +43,7 @@ public class NetworkTableConstants {
     public static final String IP_ADDRESS_POOL_ENTRY_STATE = "ipaddress_state";
     public static final String IP_ADDRESS_POOL_ENTRY_EXPIRY_DATE = "expiry_date";
     public static final String IP_ADDRESS_POOL_ENTRY_USAGE_ID = "ipaddress_usage_guid";
+    
+    NetworkTableConstants(){}
 
 }

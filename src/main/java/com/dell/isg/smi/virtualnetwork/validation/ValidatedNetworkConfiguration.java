@@ -11,6 +11,9 @@ import com.dell.isg.smi.virtualnetwork.entity.NetworkConfiguration;
 import com.dell.isg.smi.virtualnetwork.exception.ErrorCodeEnum;
 import com.dell.isg.smi.virtualnetwork.model.NetworkType;
 
+/**
+ * The Class ValidatedNetworkConfiguration.
+ */
 public class ValidatedNetworkConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(ValidatedNetworkConfiguration.class);
     private static final int MIN_VLAN_ID = 1;
@@ -22,6 +25,11 @@ public class ValidatedNetworkConfiguration {
     private Integer vlanId;
 
 
+    /**
+     * Instantiates a new validated network configuration.
+     *
+     * @param content the content
+     */
     public ValidatedNetworkConfiguration(NetworkConfiguration content) {
         name = content.getName();
 
@@ -104,6 +112,8 @@ public class ValidatedNetworkConfiguration {
 
 
     /**
+     * Checks if is static.
+     *
      * @return the isStatic
      */
     public boolean isStatic() {
@@ -112,10 +122,8 @@ public class ValidatedNetworkConfiguration {
 
 
     /**
-     * @return the staticProperties
-     */
-
-    /**
+     * Gets the name.
+     *
      * @return the name
      */
     public String getName() {
@@ -124,6 +132,8 @@ public class ValidatedNetworkConfiguration {
 
 
     /**
+     * Gets the network type.
+     *
      * @return the networkType
      */
     public String getNetworkType() {
@@ -132,6 +142,8 @@ public class ValidatedNetworkConfiguration {
 
 
     /**
+     * Gets the vlan id.
+     *
      * @return the vlanId
      */
     public int getVlanId() {

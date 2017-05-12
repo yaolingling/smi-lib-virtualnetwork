@@ -11,6 +11,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+/**
+ * The Class IpRange.
+ */
 @ApiModel
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "IpRange", propOrder = { "id", "startingIp", "endingIp", "ipAddressesInUse", "ipAddressesFree" })
@@ -103,6 +106,7 @@ public class IpRange {
     /**
      * Gets the value of the ipAddressesInUse property.
      *
+     * @return the ip addresses in use
      */
     public int getIpAddressesInUse() {
         return ipAddressesInUse;
@@ -112,6 +116,7 @@ public class IpRange {
     /**
      * Sets the value of the ipAddressesInUse property.
      *
+     * @param value the new ip addresses in use
      */
     public void setIpAddressesInUse(int value) {
         this.ipAddressesInUse = value;
@@ -121,6 +126,7 @@ public class IpRange {
     /**
      * Gets the value of the ipAddressesFree property.
      *
+     * @return the ip addresses free
      */
     public int getIpAddressesFree() {
         return ipAddressesFree;
@@ -130,6 +136,7 @@ public class IpRange {
     /**
      * Sets the value of the ipAddressesFree property.
      *
+     * @param value the new ip addresses free
      */
     public void setIpAddressesFree(int value) {
         this.ipAddressesFree = value;

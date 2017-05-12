@@ -8,6 +8,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+/**
+ * The Class IpAddresses.
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "IpAddresses", propOrder = { "id", "startingIp", "endingIp" })
 public class IpAddresses {

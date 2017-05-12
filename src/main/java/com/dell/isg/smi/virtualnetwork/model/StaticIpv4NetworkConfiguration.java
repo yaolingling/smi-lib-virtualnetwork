@@ -13,6 +13,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+/**
+ * The Class StaticIpv4NetworkConfiguration.
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "StaticIpv4NetworkConfiguration", propOrder = { "gateway", "subnet", "primaryDns", "secondaryDns", "dnsSuffix", "ipRange" })
 public class StaticIpv4NetworkConfiguration {
@@ -153,23 +156,23 @@ public class StaticIpv4NetworkConfiguration {
 
     /**
      * Gets the value of the ipRange property.
-     *
+     * 
      * <p>
      * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the ipRange property.
-     *
+     * 
      * <p>
      * For example, to add a new item, do as follows:
      * 
      * <pre>
      * getIpRange().add(newItem);
      * </pre>
-     *
-     *
+     * 
+     * 
      * <p>
      * Objects of the following type(s) are allowed in the list {@link IpRange }
      *
-     *
+     * @return the ip range
      */
     public List<IpRange> getIpRange() {
         if (ipRange == null) {

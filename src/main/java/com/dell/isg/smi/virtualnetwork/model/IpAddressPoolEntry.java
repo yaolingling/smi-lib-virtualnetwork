@@ -12,6 +12,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
+/**
+ * The Class IpAddressPoolEntry.
+ */
 @ApiModel
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "IpAddressPoolEntry", propOrder = { "id", "ipAddress", "ipAddressState", "usageId", "expiryDate" })
@@ -36,6 +39,7 @@ public class IpAddressPoolEntry {
     /**
      * Gets the value of the id property.
      *
+     * @return the id
      */
     public long getId() {
         return id;
@@ -45,6 +49,7 @@ public class IpAddressPoolEntry {
     /**
      * Sets the value of the id property.
      *
+     * @param value the new id
      */
     public void setId(long value) {
         this.id = value;
@@ -98,6 +103,7 @@ public class IpAddressPoolEntry {
     /**
      * Gets the value of the usageId property.
      *
+     * @return the usage id
      */
     public String getUsageId() {
         return usageId;
@@ -107,6 +113,7 @@ public class IpAddressPoolEntry {
     /**
      * Sets the value of the usageId property.
      *
+     * @param value the new usage id
      */
     public void setUsageId(String value) {
         this.usageId = value;

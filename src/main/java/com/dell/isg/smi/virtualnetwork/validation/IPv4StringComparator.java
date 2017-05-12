@@ -6,10 +6,17 @@ package com.dell.isg.smi.virtualnetwork.validation;
 import java.util.Comparator;
 import java.util.Scanner;
 
+/**
+ * The Class IPv4StringComparator.
+ */
 public class IPv4StringComparator implements Comparator<String> {
 
     /**
-     * used to compare two IPv4 strings
+     * used to compare two IPv4 strings.
+     *
+     * @param inetAddress1 the inet address 1
+     * @param inetAddress2 the inet address 2
+     * @return the int
      */
     @Override
     public int compare(String inetAddress1, String inetAddress2) {
@@ -17,6 +24,12 @@ public class IPv4StringComparator implements Comparator<String> {
     }
 
 
+    /**
+     * To numeric.
+     *
+     * @param ipAddress the ip address
+     * @return the long
+     */
     private static Long toNumeric(String ipAddress) {
         Long returnValue;
         try (Scanner scanner = new Scanner(ipAddress);) {

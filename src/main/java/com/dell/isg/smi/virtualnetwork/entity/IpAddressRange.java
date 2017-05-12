@@ -30,7 +30,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
- * @author Lakshmi.Lakkireddy
+ * The Class IpAddressRange.
  *
  */
 @Entity
@@ -66,6 +66,8 @@ public class IpAddressRange extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the name.
+     *
      * @return the name
      */
     public String getName() {
@@ -74,6 +76,8 @@ public class IpAddressRange extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the name.
+     *
      * @param name the name to set
      */
     public void setName(String name) {
@@ -82,6 +86,8 @@ public class IpAddressRange extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the start ip address.
+     *
      * @return the startIpAddress
      */
     public long getStartIpAddress() {
@@ -90,6 +96,8 @@ public class IpAddressRange extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the start ip address.
+     *
      * @param startIpAddress the startIpAddress to set
      */
     public void setStartIpAddress(long startIpAddress) {
@@ -98,6 +106,8 @@ public class IpAddressRange extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the end ip address.
+     *
      * @return the endIpAddress
      */
     public long getEndIpAddress() {
@@ -106,6 +116,8 @@ public class IpAddressRange extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the end ip address.
+     *
      * @param endIpAddress the endIpAddress to set
      */
     public void setEndIpAddress(long endIpAddress) {
@@ -114,6 +126,8 @@ public class IpAddressRange extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the network configuration.
+     *
      * @return the networkConfiguration
      */
     public NetworkConfiguration getNetworkConfiguration() {
@@ -122,6 +136,8 @@ public class IpAddressRange extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the network configuration.
+     *
      * @param networkConfiguration the networkConfiguration to set
      */
     public void setNetworkConfiguration(NetworkConfiguration networkConfiguration) {
@@ -130,6 +146,8 @@ public class IpAddressRange extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the ip address pool.
+     *
      * @return the ipAddressPool
      */
     public Set<IpAddressPoolEntry> getIpAddressPool() {
@@ -138,6 +156,8 @@ public class IpAddressRange extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the ip address pool.
+     *
      * @param ipAddressPool the ipAddressPool to set
      */
     public void setIpAddressPool(Set<IpAddressPoolEntry> ipAddressPool) {
@@ -146,6 +166,8 @@ public class IpAddressRange extends BaseEntity implements Serializable {
 
 
     /**
+     * Checks if is temporary.
+     *
      * @return the temporary
      */
     public boolean isTemporary() {
@@ -154,6 +176,8 @@ public class IpAddressRange extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the temporary.
+     *
      * @param temporary the temporary to set
      */
     public void setTemporary(boolean temporary) {
@@ -162,6 +186,8 @@ public class IpAddressRange extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the description.
+     *
      * @return the description
      */
     public String getDescription() {
@@ -170,6 +196,8 @@ public class IpAddressRange extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the description.
+     *
      * @param description the description to set
      */
     public void setDescription(String description) {

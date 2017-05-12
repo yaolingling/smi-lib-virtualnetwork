@@ -19,12 +19,14 @@ import com.dell.isg.smi.virtualnetwork.model.StaticIpv4NetworkConfiguration;
 import com.dell.isg.smi.virtualnetwork.validation.Inet4ConverterValidator;
 
 /**
- * @author Lakshmi.Lakkireddy
- *
+ * The Class NetworkConfigurationDtoAssemblerImpl.
  */
 @Component
 public class NetworkConfigurationDtoAssemblerImpl implements NetworkConfigurationDtoAssembler {
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationDtoAssembler#transform(com.dell.isg.smi.virtualnetwork.entity.NetworkConfiguration)
+     */
     @Override
     public Network transform(NetworkConfiguration networkConfiguration) {
         if (networkConfiguration == null) {
@@ -69,7 +71,7 @@ public class NetworkConfigurationDtoAssemblerImpl implements NetworkConfiguratio
 
 
     private void setIpAddressRangeForWSObject(NetworkConfiguration networkConfiguration, StaticIpv4NetworkConfiguration staticProperties) {
-        List<IpRange> ipRangeList = new ArrayList<IpRange>();
+        List<IpRange> ipRangeList = new ArrayList<>();
         for (IpAddressRange ipAddressRange : networkConfiguration.getIpAddressRanges()) {
             // Hide temporary IP ranges for now. At some point we may want to expose them. They are used
             // for one-off assigned IPs that did not come from a pool and will be deleted when released.
@@ -85,9 +87,12 @@ public class NetworkConfigurationDtoAssemblerImpl implements NetworkConfiguratio
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationDtoAssembler#transform(com.dell.isg.smi.virtualnetwork.model.Network)
+     */
     @Override
     public NetworkConfiguration transform(Network network) {
-        NetworkConfiguration networkConfiguration = null;
+        NetworkConfiguration networkConfiguration;
         if (network == null) {
             return null;
         }
@@ -116,7 +121,7 @@ public class NetworkConfigurationDtoAssemblerImpl implements NetworkConfiguratio
         networkConfiguration.setSecondaryDns(staticProperties.getSecondaryDns());
         networkConfiguration.setDnsSuffix(staticProperties.getDnsSuffix());
 
-        Set<IpAddressRange> ipAddressRangeList = new HashSet<IpAddressRange>();
+        Set<IpAddressRange> ipAddressRangeList = new HashSet<>();
         if (staticProperties.getIpRange() != null) {
             for (IpRange ipRange : staticProperties.getIpRange()) {
                 IpAddressRange ipAddressRange = transform(ipRange, networkConfiguration);
@@ -127,6 +132,9 @@ public class NetworkConfigurationDtoAssemblerImpl implements NetworkConfiguratio
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationDtoAssembler#transform(com.dell.isg.smi.virtualnetwork.model.IpRange, com.dell.isg.smi.virtualnetwork.entity.NetworkConfiguration)
+     */
     @Override
     public IpAddressRange transform(IpRange ipRange, NetworkConfiguration networkConfiguration) {
         IpAddressRange ipAddressRange = new IpAddressRange();
@@ -134,7 +142,7 @@ public class NetworkConfigurationDtoAssemblerImpl implements NetworkConfiguratio
             return null;
         }
         // only setting the ID for update operation. For create operation, id should be null
-        if (null != ipRange.getId() && !(0 == ipRange.getId())) {
+        if (null != ipRange.getId() && (0 != ipRange.getId())) {
             ipAddressRange.setId(ipRange.getId());
         }
         ipAddressRange.setStartIpAddress(Inet4ConverterValidator.convertIpStringToLong(ipRange.getStartingIp()));

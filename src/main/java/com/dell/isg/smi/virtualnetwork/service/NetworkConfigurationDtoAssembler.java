@@ -9,17 +9,32 @@ import com.dell.isg.smi.virtualnetwork.model.IpRange;
 import com.dell.isg.smi.virtualnetwork.model.Network;
 
 /**
- * @author Lakshmi.Lakkireddy
- *
+ * The Interface NetworkConfigurationDtoAssembler.
  */
 public interface NetworkConfigurationDtoAssembler {
 
+    /**
+     * Transform.
+     *
+     * @param networkConfiguration the network configuration
+     * @return the network
+     */
     Network transform(NetworkConfiguration networkConfiguration);
 
-
+    /**
+     * Transform.
+     *
+     * @param network the network
+     * @return the network configuration
+     */
     NetworkConfiguration transform(Network network);
 
-
+    /**
+     * Transform.
+     *
+     * @param ipRange the ip range
+     * @param networkConfiguration the network configuration
+     * @return the ip address range
+     */
     IpAddressRange transform(IpRange ipRange, NetworkConfiguration networkConfiguration);
-
 }

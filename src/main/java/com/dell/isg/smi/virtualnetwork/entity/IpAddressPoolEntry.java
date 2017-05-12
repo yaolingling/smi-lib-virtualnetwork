@@ -28,8 +28,7 @@ import javax.persistence.Table;
 import com.dell.isg.smi.virtualnetwork.model.IpAddressState;
 
 /**
- * @author Lakshmi.Lakkireddy
- *
+ * The Class IpAddressPoolEntry.
  */
 @Entity
 @Table(name = T_IP_ADDRESS_POOL_ENTRY)
@@ -60,6 +59,8 @@ public class IpAddressPoolEntry extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the ip address.
+     *
      * @return the ipAddress
      */
     public long getIpAddress() {
@@ -68,6 +69,8 @@ public class IpAddressPoolEntry extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the ip address.
+     *
      * @param ipAddress the ipAddress to set
      */
     public void setIpAddress(long ipAddress) {
@@ -76,6 +79,8 @@ public class IpAddressPoolEntry extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the name.
+     *
      * @return the name
      */
     public String getName() {
@@ -84,6 +89,8 @@ public class IpAddressPoolEntry extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the name.
+     *
      * @param name the name to set
      */
     public void setName(String name) {
@@ -92,6 +99,8 @@ public class IpAddressPoolEntry extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the ip address state.
+     *
      * @return the ipAddressState
      */
     public String getIpAddressState() {
@@ -100,6 +109,8 @@ public class IpAddressPoolEntry extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the ip address state.
+     *
      * @param ipAddressState the ipAddressState to set
      */
     public void setIpAddressState(String ipAddressState) {
@@ -108,7 +119,9 @@ public class IpAddressPoolEntry extends BaseEntity implements Serializable {
 
 
     /**
-     * @param ipAddressState the ipAddressState to set
+     * Sets the IP address state.
+     *
+     * @param state the new IP address state
      */
     public void setIPAddressState(IpAddressState state) {
         this.ipAddressState = state.toString();
@@ -116,6 +129,8 @@ public class IpAddressPoolEntry extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the IP address range.
+     *
      * @return the ipAddressRange
      */
     public IpAddressRange getIPAddressRange() {
@@ -124,6 +139,8 @@ public class IpAddressPoolEntry extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the IP address range.
+     *
      * @param ipAddressRange the ipAddressRange to set
      */
     public void setIPAddressRange(IpAddressRange ipAddressRange) {
@@ -132,6 +149,8 @@ public class IpAddressPoolEntry extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the expiry date.
+     *
      * @return the expiryDate
      */
     public Date getExpiryDate() {
@@ -140,6 +159,8 @@ public class IpAddressPoolEntry extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the expiry date.
+     *
      * @param expiryDate the expiryDate to set
      */
     public void setExpiryDate(Date expiryDate) {
@@ -148,6 +169,8 @@ public class IpAddressPoolEntry extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the ip address usage id.
+     *
      * @return the ipAddressUsageId
      */
     public String getIpAddressUsageId() {
@@ -156,6 +179,8 @@ public class IpAddressPoolEntry extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the ip address usage id.
+     *
      * @param ipAddressUsageId the ipAddressUsageId to set
      */
     public void setIpAddressUsageId(String ipAddressUsageId) {
@@ -163,6 +188,9 @@ public class IpAddressPoolEntry extends BaseEntity implements Serializable {
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.entity.BaseEntity#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null)
@@ -175,6 +203,9 @@ public class IpAddressPoolEntry extends BaseEntity implements Serializable {
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.entity.BaseEntity#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;

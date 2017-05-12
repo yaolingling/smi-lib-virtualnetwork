@@ -34,6 +34,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+/**
+ * The Class NetworkConfiguration.
+ */
 @Entity
 @Table(name = T_NETWORK_CONFIGURATION)
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -79,6 +82,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the vlan id.
+     *
      * @return the vlanId
      */
     public Integer getVlanId() {
@@ -87,6 +92,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the vlan id.
+     *
      * @param vlanId the vlanId to set
      */
     public void setVlanId(Integer vlanId) {
@@ -95,6 +102,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Checks if is static.
+     *
      * @return the isStatic
      */
     public boolean isStatic() {
@@ -103,6 +112,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the static.
+     *
      * @param isStatic the isStatic to set
      */
     public void setStatic(boolean isStatic) {
@@ -111,6 +122,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the name.
+     *
      * @return the name
      */
     public String getName() {
@@ -119,6 +132,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the name.
+     *
      * @param name the name to set
      */
     public void setName(String name) {
@@ -127,6 +142,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the type.
+     *
      * @return the type
      */
     public String getType() {
@@ -135,6 +152,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the type.
+     *
      * @param type the type to set
      */
     public void setType(String type) {
@@ -143,6 +162,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the gateway.
+     *
      * @return the gateway
      */
     public String getGateway() {
@@ -151,6 +172,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the gateway.
+     *
      * @param gateway the gateway to set
      */
     public void setGateway(String gateway) {
@@ -159,6 +182,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the subnet.
+     *
      * @return the subnet
      */
     public String getSubnet() {
@@ -167,6 +192,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the subnet.
+     *
      * @param subnet the subnet to set
      */
     public void setSubnet(String subnet) {
@@ -175,6 +202,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the primary dns.
+     *
      * @return the primaryDns
      */
     public String getPrimaryDns() {
@@ -183,6 +212,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the primary dns.
+     *
      * @param primaryDns the primaryDns to set
      */
     public void setPrimaryDns(String primaryDns) {
@@ -191,6 +222,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the secondary dns.
+     *
      * @return the secondaryDns
      */
     public String getSecondaryDns() {
@@ -199,6 +232,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the secondary dns.
+     *
      * @param secondaryDns the secondaryDns to set
      */
     public void setSecondaryDns(String secondaryDns) {
@@ -207,6 +242,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the dns suffix.
+     *
      * @return the dnsSuffix
      */
     public String getDnsSuffix() {
@@ -215,6 +252,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the dns suffix.
+     *
      * @param dnsSuffix the dnsSuffix to set
      */
     public void setDnsSuffix(String dnsSuffix) {
@@ -223,6 +262,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the description.
+     *
      * @return the description
      */
     public String getDescription() {
@@ -231,6 +272,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the description.
+     *
      * @param description the description to set
      */
     public void setDescription(String description) {
@@ -239,6 +282,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Gets the ip address ranges.
+     *
      * @return the ipAddressRanges
      */
     public Set<IpAddressRange> getIpAddressRanges() {
@@ -247,6 +292,8 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
 
 
     /**
+     * Sets the ip address ranges.
+     *
      * @param ipAddressRanges the ipAddressRanges to set
      */
     public void setIpAddressRanges(Set<IpAddressRange> ipAddressRanges) {
@@ -254,6 +301,9 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.entity.BaseEntity#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -272,6 +322,9 @@ public class NetworkConfiguration extends BaseEntity implements Serializable {
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.entity.BaseEntity#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

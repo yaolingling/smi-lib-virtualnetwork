@@ -21,8 +21,8 @@ import org.springframework.util.StringUtils;
 
 import com.dell.isg.smi.commons.elm.exception.BusinessValidationException;
 import com.dell.isg.smi.commons.elm.exception.RuntimeCoreException;
-import com.dell.isg.smi.commons.elm.model.PagedResult;
-import com.dell.isg.smi.commons.elm.utilities.PaginationUtils;
+import com.dell.isg.smi.commons.utilities.model.PagedResult;
+import com.dell.isg.smi.commons.utilities.PaginationUtils;
 import com.dell.isg.smi.virtualnetwork.common.utilities.UserHelper;
 import com.dell.isg.smi.virtualnetwork.entity.IpAddressPoolEntry;
 import com.dell.isg.smi.virtualnetwork.entity.IpAddressRange;
@@ -40,6 +40,9 @@ import com.dell.isg.smi.virtualnetwork.validation.Inet4ConverterValidator;
 import com.dell.isg.smi.virtualnetwork.validation.ValidatedInet4Range;
 import com.dell.isg.smi.virtualnetwork.validation.ValidatedNetworkConfiguration;
 
+/**
+ * The Class NetworkConfigurationManagerImpl.
+ */
 @Component
 public class NetworkConfigurationManagerImpl implements NetworkConfigurationManager {
 
@@ -64,6 +67,9 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
     public static final String IP_ADDRESS_STATE_AVAILABLE = "AVAILABLE";
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationManager#getAllNetworks(int, int)
+     */
     @Override
     public PagedResult getAllNetworks(int offset, int limit) {
         logger.trace("Entering NetworkConfigurationManager getAllNetworks");
@@ -97,7 +103,7 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
         return pagedResult;
     }
 
-
+    
     private Network transformNetworkConfigAndSetIpRangeProperties(NetworkConfiguration networkConfiguration) {
         logger.trace("Entering transformNetworkConfigAndSetIpRangeParameters()");
         Network network = networkConfigurationDtoAssembler.transform(networkConfiguration);
@@ -129,6 +135,9 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationManager#getNetwork(java.lang.String)
+     */
     @Override
     public Network getNetwork(String name) {
         logger.trace("Entering NetworkConfigurationManager getNetwork(String name)");
@@ -144,6 +153,9 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationManager#getNetworkByNamePaged(java.lang.String)
+     */
     @Override
     public PagedResult getNetworkByNamePaged(String name) {
         logger.trace("Entering NetworkConfigurationManager getNetworkByNamePaged(String name)");
@@ -170,6 +182,9 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationManager#getNetwork(long)
+     */
     @Override
     public Network getNetwork(long networkId) {
         logger.trace("Entering NetworkConfigurationManager getNetwork");
@@ -185,6 +200,9 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationManager#createNetwork(com.dell.isg.smi.virtualnetwork.model.Network)
+     */
     @Override
     @Transactional
     public long createNetwork(Network network) {
@@ -218,7 +236,7 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
                 throw runtimeCoreException;
             }
 
-            if (null != ipAddressRangesList && ipAddressRangesList.size() > 0) {
+            if ( !CollectionUtils.isEmpty(ipAddressRangesList)) {
                 logger.error("IP ranges overlap with IP ranges of other Network Configurations");
                 BadRequestException badRequestException = new BadRequestException();
                 badRequestException.setErrorCode(ErrorCodeEnum.NETWORKCONF_NETWORK_OVERLAP);
@@ -258,7 +276,11 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
 
 
     // TODO: refactor this method!
-    // This method needs to be rewritten to pull the existing network, and modify it with the transform based on partial data
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationManager#updateNetwork(com.dell.isg.smi.virtualnetwork.model.Network, long)
+     * 
+     * This method needs to be rewritten to pull the existing network, and modify it with the transform based on partial data
+     */
     // present in the network model parameter. In its current implementation it doesn't presently support partial updates.
     @Override
     @Transactional
@@ -289,10 +311,7 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
             validateIpCountForStaticNetwork(networkConfiguration);
 
             // check if IPAddress type (DHCP <-> Static) is changed. If yes, throw validation exception
-            if (networkConfiguration.isStatic() && !(oldNetworkConfiguration.isStatic())) {
-                logger.error("Network Configuration's IP-Address type is changed");
-                throw new BusinessValidationException(ErrorCodeEnum.NETWORKCONF_IPADDRESS_TYPE_CHANGED);
-            } else if (!networkConfiguration.isStatic() && (oldNetworkConfiguration.isStatic())) {
+            if ( (networkConfiguration.isStatic() && !oldNetworkConfiguration.isStatic()) || (!networkConfiguration.isStatic() && oldNetworkConfiguration.isStatic()) ) {
                 logger.error("Network Configuration's IP-Address type is changed");
                 throw new BusinessValidationException(ErrorCodeEnum.NETWORKCONF_IPADDRESS_TYPE_CHANGED);
             }
@@ -318,6 +337,9 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationManager#deleteNetwork(com.dell.isg.smi.virtualnetwork.entity.NetworkConfiguration, long)
+     */
     @Override
     @Transactional
     public void deleteNetwork(NetworkConfiguration networkConfiguration, long networkId) {
@@ -354,6 +376,9 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationManager#isNetworkIdValid(long)
+     */
     @Override
     public boolean isNetworkIdValid(long networkId) {
         if (networkId <= 0) {
@@ -366,6 +391,9 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationManager#isIpRangeValid(com.dell.isg.smi.virtualnetwork.model.IpRange)
+     */
     @Override
     public boolean isIpRangeValid(IpRange ipRange) {
         if (ipRange != null) {
@@ -375,6 +403,9 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationManager#addIpv4Range(long, com.dell.isg.smi.virtualnetwork.model.IpRange)
+     */
     @Override
     public long addIpv4Range(long networkId, IpRange ipRange) {
         logger.trace("entered addIpv4Range() {}", networkId);
@@ -410,6 +441,9 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationManager#isIpRangeIdValid(long)
+     */
     @Override
     public boolean isIpRangeIdValid(long rangeId) {
         if (rangeId <= 0) {
@@ -419,6 +453,9 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationManager#updateIpv4Range(long, long, com.dell.isg.smi.virtualnetwork.model.IpRange)
+     */
     @Override
     public void updateIpv4Range(long networkId, long rangeId, IpRange ipRange) {
         logger.trace("entered updateIpv4Range() rangeId:{}", rangeId);
@@ -542,6 +579,9 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationManager#deleteIpv4Range(long, long)
+     */
     @Override
     public void deleteIpv4Range(long networkId, long rangeId) {
         logger.trace("entered deleteIpv4Range() rangeId:{}", rangeId);
@@ -612,6 +652,9 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationManager#getAllNetworksByType(java.lang.String)
+     */
     @Override
     public List<Network> getAllNetworksByType(String networkType) {
         final List<Network> networks = new ArrayList<>();
@@ -626,6 +669,9 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationManager#getNetworkByName(java.lang.String)
+     */
     @Override
     public Network getNetworkByName(String networkName) {
         logger.trace("Entering NetworkConfigurationManager getNetworksByName({})", networkName);
@@ -639,6 +685,9 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationManager#isVlandIdGreaterThan4000(int)
+     */
     @Override
     public boolean isVlandIdGreaterThan4000(int vlanId) {
         logger.trace("Entering isVlandIdGreaterThan4000({})", vlanId);
@@ -650,6 +699,9 @@ public class NetworkConfigurationManagerImpl implements NetworkConfigurationMana
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.NetworkConfigurationManager#getNetworkConfiguration(long)
+     */
     @Override
     public NetworkConfiguration getNetworkConfiguration(long networkId) {
         logger.trace("Entering getNetwork() method with networkId: {}", networkId);

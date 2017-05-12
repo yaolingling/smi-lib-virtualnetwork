@@ -20,6 +20,9 @@ import com.dell.isg.smi.virtualnetwork.entity.IpAddressRange;
 import com.dell.isg.smi.virtualnetwork.entity.NetworkConfiguration;
 import com.dell.isg.smi.virtualnetwork.exception.ErrorCodeEnum;
 
+/**
+ * The Class ValidatedStaticNetworkProperties.
+ */
 public class ValidatedStaticNetworkProperties {
 
     private static final Logger logger = LoggerFactory.getLogger(ValidatedStaticNetworkProperties.class);
@@ -31,64 +34,14 @@ public class ValidatedStaticNetworkProperties {
     private ValidatedInet4SubnetMask subnetMask;
     private TreeSet<ValidatedInet4Range> ipRanges;
     private String networkType;
-
-
+    
+    
     /**
-     * @return the gateway
+     * Instantiates a new validated static network properties.
+     *
+     * @param networkProperties the network properties
+     * @param networkType the network type
      */
-    public ValidatedInet4Address getGateway() {
-        return gateway;
-    }
-
-
-    /**
-     * @return the dnsSuffix
-     */
-    public String getDnsSuffix() {
-        return dnsSuffix;
-    }
-
-
-    /**
-     * @return the primaryDns
-     */
-    public ValidatedInet4Address getPrimaryDns() {
-        return primaryDns;
-    }
-
-
-    /**
-     * @return the secondaryDns
-     */
-    public ValidatedInet4Address getSecondaryDns() {
-        return secondaryDns;
-    }
-
-
-    /**
-     * @return the subnetMask
-     */
-    public ValidatedInet4SubnetMask getSubnetMask() {
-        return subnetMask;
-    }
-
-
-    /**
-     * @return the ipRanges
-     */
-    public SortedSet<ValidatedInet4Range> getIpRanges() {
-        return Collections.unmodifiableSortedSet(ipRanges);
-    }
-
-
-    /**
-     * @return the networkType
-     */
-    public String getNetworkType() {
-        return networkType;
-    }
-
-
     public ValidatedStaticNetworkProperties(NetworkConfiguration networkProperties, String networkType) {
         this.networkType = networkType;
         if (null == networkProperties) {
@@ -107,6 +60,75 @@ public class ValidatedStaticNetworkProperties {
         }
     }
 
+    
+    /**
+     * Gets the gateway.
+     *
+     * @return the gateway
+     */
+    public ValidatedInet4Address getGateway() {
+        return gateway;
+    }
+
+
+    /**
+     * Gets the dns suffix.
+     *
+     * @return the dnsSuffix
+     */
+    public String getDnsSuffix() {
+        return dnsSuffix;
+    }
+
+
+    /**
+     * Gets the primary dns.
+     *
+     * @return the primaryDns
+     */
+    public ValidatedInet4Address getPrimaryDns() {
+        return primaryDns;
+    }
+
+
+    /**
+     * Gets the secondary dns.
+     *
+     * @return the secondaryDns
+     */
+    public ValidatedInet4Address getSecondaryDns() {
+        return secondaryDns;
+    }
+
+
+    /**
+     * Gets the subnet mask.
+     *
+     * @return the subnetMask
+     */
+    public ValidatedInet4SubnetMask getSubnetMask() {
+        return subnetMask;
+    }
+
+
+    /**
+     * Gets the ip ranges.
+     *
+     * @return the ipRanges
+     */
+    public SortedSet<ValidatedInet4Range> getIpRanges() {
+        return Collections.unmodifiableSortedSet(ipRanges);
+    }
+
+
+    /**
+     * Gets the network type.
+     *
+     * @return the networkType
+     */
+    public String getNetworkType() {
+        return networkType;
+    }
 
     private void validateAndSetSecondaryDns(String secondaryDnsString) {
         if (!StringUtils.hasLength(secondaryDnsString)) {
