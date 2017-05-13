@@ -92,7 +92,7 @@ configurations.all {
 
 dependencies {
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.10.Final'
-	compile 'com.dell.isg.smi:commons-elm:1.0.73'
+	compile 'com.dell.isg.smi:commons-elm:1.0.76'
 	compile 'com.dell.isg.smi:commons-utilities:1.0.26'
     compile 'org.springframework.data:spring-data-jpa'
 	compile "org.springframework:spring-web:${springVersion}"
