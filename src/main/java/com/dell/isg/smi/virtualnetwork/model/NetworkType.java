@@ -8,6 +8,9 @@ import io.swagger.annotations.ApiModel;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 
+/**
+ * The Enum NetworkType.
+ */
 @ApiModel
 @XmlType(name = "NetworkType")
 @XmlEnum
@@ -15,11 +18,22 @@ public enum NetworkType {
 
     PUBLIC_LAN, PRIVATE_LAN, STORAGE_ISCSI_SAN, STORAGE_FCOE_SAN, OOB_OR_INFRASTRUCTURE_MANAGEMENT, HYPERVISOR_MANAGEMENT, HYPERVISOR_MIGRATION, HYPERVISOR_CLUSTER_PRIVATE, PXE, FILESHARE, FIP_SNOOPING, HARDWARE_MANAGEMENT;
 
+    /**
+     * Value.
+     *
+     * @return the string
+     */
     public String value() {
         return name();
     }
 
 
+    /**
+     * From value.
+     *
+     * @param v the v
+     * @return the network type
+     */
     public static NetworkType fromValue(String v) {
         return valueOf(v);
     }

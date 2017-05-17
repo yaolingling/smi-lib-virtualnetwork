@@ -14,10 +14,10 @@ import org.slf4j.LoggerFactory;
 import com.dell.isg.smi.commons.elm.exception.BusinessValidationException;
 import com.dell.isg.smi.virtualnetwork.exception.ErrorCodeEnum;
 
+/**
+ * The Class Inet4ConverterValidator.
+ */
 public final class Inet4ConverterValidator {
-    private Inet4ConverterValidator() {
-
-    }
 
     public static final long MAX_IP_ADDRESS = 0x00000000FFFFFFFFl;
     public static final long MIN_IP_ADDRESS = 0x0000000000000000l;
@@ -25,7 +25,15 @@ public final class Inet4ConverterValidator {
     private static final String IPADDRESS_PATTERN = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
     private static Pattern pattern;
 
-
+    private Inet4ConverterValidator() {
+    }
+    
+    /**
+     * Convert ip string to long.
+     *
+     * @param address the address
+     * @return the long
+     */
     public static long convertIpStringToLong(String address) {
         if (!StringUtils.hasLength(address)) {
             logger.debug("IP conversion failed: entered IP Address string is null or empty.");
@@ -58,15 +66,27 @@ public final class Inet4ConverterValidator {
     }
 
 
+    /**
+     * Convert ip value to string.
+     *
+     * @param address the address
+     * @return the string
+     */
     public static String convertIpValueToString(long address) {
-        long aField = ((address & 0x00000000FF000000l) >>> 24);
-        long bField = ((address & 0x0000000000FF0000l) >>> 16);
-        long cField = ((address & 0x000000000000FF00l) >>> 8);
-        long dField = (address & 0x00000000000000FFl);
+        long aField = (address & 0x00000000FF000000l) >>> 24;
+        long bField = (address & 0x0000000000FF0000l) >>> 16;
+        long cField = (address & 0x000000000000FF00l) >>> 8;
+        long dField = address & 0x00000000000000FFl;
         return String.format("%1$1d.%2$1d.%3$1d.%4$1d", aField, bField, cField, dField);
     }
 
 
+    /**
+     * Checks if is valid subnet mask.
+     *
+     * @param maskValue the mask value
+     * @return true, if is valid subnet mask
+     */
     public static boolean isValidSubnetMask(long maskValue) {
         BitSet maskBits = getRightmost32BitsFromlLong(maskValue);
         // leftmost bits (at least one) must be 1
@@ -76,10 +96,16 @@ public final class Inet4ConverterValidator {
         }
         // find rightmost set bit, ensure all bits left of that (up to index 31) are set.
         int n = maskBits.nextSetBit(0);
-        return (32 == maskBits.nextClearBit(n));
+        return 32 == maskBits.nextClearBit(n);
     }
 
 
+    /**
+     * Gets the rightmost 32 bits froml long.
+     *
+     * @param value the value
+     * @return the rightmost 32 bits froml long
+     */
     private static BitSet getRightmost32BitsFromlLong(long value) {
         logger.trace("getRightmost32BitsFromlLong(" + value + ")");
         final int size = 32;
@@ -97,11 +123,23 @@ public final class Inet4ConverterValidator {
     }
 
 
+    /**
+     * Checks if is valid ip address.
+     *
+     * @param value the value
+     * @return true, if is valid ip address
+     */
     public static boolean isValidIpAddress(long value) {
         return (MIN_IP_ADDRESS <= value) && (value <= MAX_IP_ADDRESS);
     }
 
 
+    /**
+     * Checks if is valid ip address.
+     *
+     * @param addressString the address string
+     * @return true, if is valid ip address
+     */
     public static boolean isValidIpAddress(String addressString) {
         long ipValue = convertIpStringToLong(addressString);
         return isValidIpAddress(ipValue);

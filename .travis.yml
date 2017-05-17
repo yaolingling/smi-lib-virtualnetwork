@@ -1,0 +1,6 @@
+language: java
+sudo: true
+script: mvn build test sonarqube
+dist: trusty
+jdk:
+  - openjdk8

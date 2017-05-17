@@ -12,6 +12,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+/**
+ * The Class Network.
+ */
 @ApiModel
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = { "id", "name", "description", "type", "vlanId", "_static", "staticIpv4NetworkConfiguration", "createdTime", "createdBy", "updatedTime", "updatedBy", "link" })
@@ -61,6 +64,7 @@ public class Network {
     /**
      * Gets the value of the id property.
      *
+     * @return the id
      */
     public long getId() {
         return id;
@@ -70,6 +74,7 @@ public class Network {
     /**
      * Sets the value of the id property.
      *
+     * @param value the new id
      */
     public void setId(long value) {
         this.id = value;
@@ -167,6 +172,7 @@ public class Network {
     /**
      * Gets the value of the static property.
      *
+     * @return true, if is static
      */
     public boolean isStatic() {
         return _static;
@@ -176,6 +182,7 @@ public class Network {
     /**
      * Sets the value of the static property.
      *
+     * @param value the new static
      */
     public void setStatic(boolean value) {
         this._static = value;

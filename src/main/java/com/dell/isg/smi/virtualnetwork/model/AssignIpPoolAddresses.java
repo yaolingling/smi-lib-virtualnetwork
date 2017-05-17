@@ -14,6 +14,9 @@ import javax.xml.bind.annotation.XmlType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+/**
+ * The Class AssignIpPoolAddresses.
+ */
 @ApiModel(value = "AssignIpPoolAddresses", description = "A data transfer object for containing the usageid and a list of ip addresses to be assigned")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = { "usageId", "ipAddresses" })
@@ -30,6 +33,7 @@ public class AssignIpPoolAddresses {
     /**
      * Gets the value of the usageId property.
      *
+     * @return the usage id
      */
     public String getUsageId() {
         return usageId;
@@ -39,6 +43,7 @@ public class AssignIpPoolAddresses {
     /**
      * Sets the value of the usageId property.
      *
+     * @param value the new usage id
      */
     public void setUsageId(String value) {
         this.usageId = value;
@@ -47,27 +52,27 @@ public class AssignIpPoolAddresses {
 
     /**
      * Gets the value of the ipAddresses property.
-     *
+     * 
      * <p>
      * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the ipAddresses property.
-     *
+     * 
      * <p>
      * For example, to add a new item, do as follows:
      * 
      * <pre>
      * getIpAddresses().add(newItem);
      * </pre>
-     *
-     *
+     * 
+     * 
      * <p>
      * Objects of the following type(s) are allowed in the list {@link String }
      *
-     *
+     * @return the ip addresses
      */
     public List<String> getIpAddresses() {
         if (ipAddresses == null) {
-            ipAddresses = new ArrayList<String>();
+            ipAddresses = new ArrayList<>();
         }
         return this.ipAddresses;
     }

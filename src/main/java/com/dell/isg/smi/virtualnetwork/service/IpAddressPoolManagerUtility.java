@@ -13,15 +13,24 @@ import com.dell.isg.smi.virtualnetwork.model.IpAddressState;
 import com.dell.isg.smi.virtualnetwork.validation.Inet4ConverterValidator;
 import com.dell.isg.smi.virtualnetwork.validation.ValidatedInet4Range;
 
+/**
+ * The Class IpAddressPoolManagerUtility.
+ */
 public final class IpAddressPoolManagerUtility {
 
     private IpAddressPoolManagerUtility() {
     }
 
 
+    /**
+     * Expand ip addresses.
+     *
+     * @param ipRange the ip range
+     * @return the sets the
+     */
     public static Set<IpAddressPoolEntry> expandIpAddresses(IpAddressRange ipRange) {
         ValidatedInet4Range validatedRange = new ValidatedInet4Range(Inet4ConverterValidator.convertIpValueToString(ipRange.getStartIpAddress()), Inet4ConverterValidator.convertIpValueToString(ipRange.getEndIpAddress()));
-        Set<IpAddressPoolEntry> addressPools = new HashSet<IpAddressPoolEntry>();
+        Set<IpAddressPoolEntry> addressPools = new HashSet<>();
         List<String> addressStrings = validatedRange.getAddressStrings();
         for (String address : addressStrings) {
             IpAddressPoolEntry entry = new IpAddressPoolEntry();

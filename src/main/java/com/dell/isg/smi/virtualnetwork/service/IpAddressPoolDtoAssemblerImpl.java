@@ -11,12 +11,14 @@ import com.dell.isg.smi.virtualnetwork.model.IpAddressState;
 import com.dell.isg.smi.virtualnetwork.validation.Inet4ConverterValidator;
 
 /**
- * @author lakshmi.lakkireddy
- *
+ * The Class IpAddressPoolDtoAssemblerImpl.
  */
 @Component
 public class IpAddressPoolDtoAssemblerImpl implements IpAddressPoolDtoAssembler {
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.IpAddressPoolDtoAssembler#transform(com.dell.isg.smi.virtualnetwork.entity.IpAddressPoolEntry)
+     */
     @Override
     public com.dell.isg.smi.virtualnetwork.model.IpAddressPoolEntry transform(IpAddressPoolEntry entity) {
         if (entity == null) {
@@ -35,6 +37,9 @@ public class IpAddressPoolDtoAssemblerImpl implements IpAddressPoolDtoAssembler 
     }
 
 
+    /* (non-Javadoc)
+     * @see com.dell.isg.smi.virtualnetwork.service.IpAddressPoolDtoAssembler#transform(com.dell.isg.smi.virtualnetwork.entity.IpAddressPoolEntry)
+     */
     @Override
     public IpAddressPoolEntry transform(com.dell.isg.smi.virtualnetwork.model.IpAddressPoolEntry modelObject) {
         if (modelObject == null) {

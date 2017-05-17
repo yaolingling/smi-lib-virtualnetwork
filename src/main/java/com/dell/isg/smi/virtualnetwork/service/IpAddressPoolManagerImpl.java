@@ -26,12 +26,14 @@ import org.springframework.util.StringUtils;
 
 import com.dell.isg.smi.commons.elm.exception.BusinessValidationException;
 import com.dell.isg.smi.commons.elm.exception.RuntimeCoreException;
-import com.dell.isg.smi.commons.elm.model.PagedResult;
-import com.dell.isg.smi.commons.elm.utilities.DateTimeUtils;
-import com.dell.isg.smi.commons.elm.utilities.PaginationUtils;
+import com.dell.isg.smi.commons.utilities.PaginationUtils;
+import com.dell.isg.smi.commons.utilities.datetime.DateTimeUtils;
+import com.dell.isg.smi.commons.utilities.model.PagedResult;
 import com.dell.isg.smi.virtualnetwork.entity.IpAddressRange;
 import com.dell.isg.smi.virtualnetwork.entity.NetworkConfiguration;
+import com.dell.isg.smi.virtualnetwork.exception.BadRequestException;
 import com.dell.isg.smi.virtualnetwork.exception.ErrorCodeEnum;
+import com.dell.isg.smi.virtualnetwork.exception.NotFoundException;
 import com.dell.isg.smi.virtualnetwork.model.AssignIpPoolAddresses;
 import com.dell.isg.smi.virtualnetwork.model.ExportIpPoolData;
 import com.dell.isg.smi.virtualnetwork.model.IpAddressPoolEntry;
@@ -45,15 +47,13 @@ import com.dell.isg.smi.virtualnetwork.validation.IPv4StringComparator;
 import com.dell.isg.smi.virtualnetwork.validation.Inet4ConverterValidator;
 
 /**
- * @author Lakshmi.Lakkireddy
- *
+ * The Class IpAddressPoolManagerImpl.
  */
 @Component
 public class IpAddressPoolManagerImpl implements IpAddressPoolManager {
 
     private static final Logger logger = LoggerFactory.getLogger(IpAddressPoolManagerImpl.class);
-    final String DEFAULT_STATE = "ALL";
-
+    private static final String defaultState = "ALL";
     private static final String GMT = "GMT";
 
     @Autowired
@@ -72,16 +72,18 @@ public class IpAddressPoolManagerImpl implements IpAddressPoolManager {
     private IpAddressPoolDtoAssembler ipAddressPoolDtoAssembler;
 
     // Singleton instance of this class.
-    private static IpAddressPoolManager _instance;
+    private static IpAddressPoolManager instance;
 
 
     /**
      * Get the singleton instance of this class, creating it if necessary.
+     *
+     * @return single instance of IpAddressPoolManagerImpl
      */
     public static synchronized IpAddressPoolManager getInstance() {
-        if (_instance == null)
-            _instance = new IpAddressPoolManagerImpl();
-        return _instance;
+        if (instance == null)
+            instance = new IpAddressPoolManagerImpl();
+        return instance;
     }
 
 
@@ -98,7 +100,7 @@ public class IpAddressPoolManagerImpl implements IpAddressPoolManager {
         List<com.dell.isg.smi.virtualnetwork.entity.IpAddressPoolEntry> ipAddressPoolEntryList = new ArrayList<>();
 
         if (!StringUtils.isEmpty(usageId)) {
-            if (!DEFAULT_STATE.equalsIgnoreCase(state)) {
+            if (!defaultState.equalsIgnoreCase(state)) {
                 Page<com.dell.isg.smi.virtualnetwork.entity.IpAddressPoolEntry> ipAddressPoolEntryPage = ipAddressPoolEntryRepository.findByIpAddressStateAndIpAddressRangeNetworkConfigurationIdAndIpAddressUsageIdOrderByIpAddressAsc(state, networkId, usageId, pageRequest);
                 ipAddressPoolEntryList = ipAddressPoolEntryPage.getContent();
             } else {
@@ -109,7 +111,7 @@ public class IpAddressPoolManagerImpl implements IpAddressPoolManager {
                 }
             }
         } else {
-            if (!DEFAULT_STATE.equalsIgnoreCase(state)) {
+            if (!defaultState.equalsIgnoreCase(state)) {
                 Page<com.dell.isg.smi.virtualnetwork.entity.IpAddressPoolEntry> ipAddressPoolEntryPage = ipAddressPoolEntryRepository.findByIpAddressStateAndIpAddressRangeNetworkConfigurationIdOrderByIpAddressAsc(state, networkId, pageRequest);
                 ipAddressPoolEntryList = ipAddressPoolEntryPage.getContent();
             } else {
@@ -127,7 +129,7 @@ public class IpAddressPoolManagerImpl implements IpAddressPoolManager {
         List<IpAddressPoolEntry> ipPoolList = new ArrayList<>();
         ipAddressPoolEntryList.stream().forEach(i -> ipPoolList.add(ipAddressPoolDtoAssembler.transform(i)));
         int total = 0;
-        if (!DEFAULT_STATE.equalsIgnoreCase(state)) {
+        if (!defaultState.equalsIgnoreCase(state)) {
             total += ipAddressPoolEntryRepository.countByIpAddressStateAndIpAddressRangeNetworkConfigurationId(state, networkId);
         } else {
             for (IpAddressState ipAddressState : IpAddressState.values()) {
@@ -172,7 +174,7 @@ public class IpAddressPoolManagerImpl implements IpAddressPoolManager {
 
 
     @Override
-    public void assignIpv4AddressPoolAddresses(long networkId, AssignIpPoolAddresses assignIpPoolAddresses) throws BusinessValidationException {
+    public void assignIpv4AddressPoolAddresses(long networkId, AssignIpPoolAddresses assignIpPoolAddresses) {
         logger.trace("Entering assignIpv4AddressPoolAddresses() with networkId: {}", networkId);
         if (assignIpPoolAddresses != null) {
             List<String> requestedIpAddresses = assignIpPoolAddresses.getIpAddresses();
@@ -222,17 +224,20 @@ public class IpAddressPoolManagerImpl implements IpAddressPoolManager {
         logger.trace("Entering releaseSpecificIpv4Address() with networkId: {} and ipAddress: {}", networkId, ipAddress);
         Long ipToRelease = Inet4ConverterValidator.convertIpStringToLong(ipAddress);
         com.dell.isg.smi.virtualnetwork.entity.IpAddressPoolEntry poolEntry = ipAddressPoolEntryRepository.findByIpAddress(ipToRelease);
+        String attributeForError = "ipAddress:" + ipAddress;
         if (poolEntry == null) {
             logger.trace("Invalid Ip Address passed");
-            RuntimeCoreException runtimeCoreException = new RuntimeCoreException(ErrorCodeEnum.ENUM_NOT_FOUND_ERROR);
-            runtimeCoreException.addAttribute("ipAddress:" + ipAddress);
-            throw runtimeCoreException;
+            NotFoundException notFoundException = new NotFoundException();
+            notFoundException.setErrorCode(ErrorCodeEnum.ENUM_NOT_FOUND_ERROR);
+            notFoundException.addAttribute(attributeForError);
+            throw notFoundException;
         }
         if (IpAddressState.AVAILABLE.toString().equals(poolEntry.getIpAddressState())) {
             logger.trace("Ip Address already released");
-            RuntimeCoreException runtimeCoreException = new RuntimeCoreException(ErrorCodeEnum.ENUM_INVALID_DATA);
-            runtimeCoreException.addAttribute("ipAddress:" + ipAddress);
-            throw runtimeCoreException;
+            BadRequestException badRequestException = new BadRequestException();
+            badRequestException.setErrorCode(ErrorCodeEnum.ENUM_INVALID_DATA);
+            badRequestException.addAttribute(attributeForError);
+            throw badRequestException;
         }
         releaseAddress(poolEntry);
         try {
@@ -240,7 +245,7 @@ public class IpAddressPoolManagerImpl implements IpAddressPoolManager {
         } catch (Exception e) {
             RuntimeCoreException exception = new RuntimeCoreException(e);
             exception.setErrorCode(ErrorCodeEnum.IPPOOL_NO_IPADDRESS_AVAILABLE);
-            exception.addAttribute("ipAddress:" + String.valueOf(ipAddress));
+            exception.addAttribute(attributeForError);
             throw exception;
         }
         logger.trace("Exiting releaseSpecificIpv4Address() with networkId: {} and ipAddress: {}", networkId, ipAddress);
@@ -497,7 +502,7 @@ public class IpAddressPoolManagerImpl implements IpAddressPoolManager {
 
     private boolean isAssignableTo(com.dell.isg.smi.virtualnetwork.entity.IpAddressPoolEntry address, String usageId) {
         IpAddressState addressState = IpAddressState.valueOf(address.getIpAddressState());
-        return (IpAddressState.AVAILABLE == addressState || IpAddressState.RESERVED == addressState || (IpAddressState.ASSIGNED == addressState && address.getIpAddressUsageId() == usageId));
+        return IpAddressState.AVAILABLE == addressState || IpAddressState.RESERVED == addressState || (IpAddressState.ASSIGNED == addressState && address.getIpAddressUsageId() == usageId);
     }
 
 

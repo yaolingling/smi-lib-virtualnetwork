@@ -19,6 +19,9 @@ import javax.xml.bind.annotation.XmlType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+/**
+ * The Class ExportIpPoolData.
+ */
 @ApiModel(value = "ExportIpPoolData", description = "A data transfer object for containing exported IPAddressPoolEntry data with additional audit column information")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
